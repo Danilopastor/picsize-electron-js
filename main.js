@@ -88,13 +88,13 @@ exports.processList = async(client,cb) =>{
 
         const { title, image } = arrImages[key];
 
-        let fileName = image.split('/')
-        filename = fileName[fileName.length - 1];
+        /*let fileName = image.split('/')
+        filename = fileName[fileName.length - 1];*/
 
         if (fs.existsSync(path.join(client.dir,filename))){
 
           cb(`copiado ${filename}...`)
-          copyFileSync(path.join(client.dir,filename), path.join(client.dir,'selecionadas',filename));
+          copyFileSync(path.join(client.dir,title), path.join(client.dir,'selecionadas',title));
         }
         cb('completo!')
 
