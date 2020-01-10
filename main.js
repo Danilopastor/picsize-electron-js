@@ -61,10 +61,12 @@ exports.selectDirectory = (res)=>{
 exports.processList = async(client,cb) =>{
     const endPoint = 'select/selection';
     const clientId = client.cod;
+    let movedFiles = 0;
 
     cb('iniciando...')
 
     await api.get(`${endPoint}/${clientId}`).then(async ({ data } ) =>{
+
 
       cb('recebendo dados...')
 
@@ -88,19 +90,30 @@ exports.processList = async(client,cb) =>{
 
         const { title, image } = arrImages[key];
 
-        /*let fileName = image.split('/')
-        filename = fileName[fileName.length - 1];*/
+        let fileName = image.split('/')
+        filename = fileName[fileName.length - 1];
 
+        console.log(client.dir,filename)
         if (fs.existsSync(path.join(client.dir,filename))){
 
           cb(`copiado ${filename}...`)
+          copyFileSync(path.join(client.dir,filename), path.join(client.dir,'selecionadas',filename));
+
+          movedFiles++
+        }else if(fs.existsSync(path.join(client.dir,title))){
+
+          cb(`copiado ${title}...`)
           copyFileSync(path.join(client.dir,title), path.join(client.dir,'selecionadas',title));
+
+          movedFiles++
+
         }
-        cb('completo!')
 
       })
+      cb(`${movedFiles} - arquivos encontrados!`)
 
     }).catch(error =>{
+      console.log(error)
       cb('erro ao obter lista!')
     })
 }
