@@ -1,0 +1,5 @@
+node_modules
+services/api.js
+dist/.icon-ico
+dist/win-unpacked
+dist/builder-effective-config.yaml

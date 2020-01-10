@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>PicSize Selection</title>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <link rel="stylesheet" href="./css/style.css"  type="text/css" />
+  </head>
+  <body>
+    <div class="content">
+
+        <div class="header">
+            <h1>Selecione as Imagens</h1>
+          </div>
+          <div class="box">
+            <div class="innerBox">
+                <div class="inputs-content">
+                  <label>Código da Galeria</label>
+                  <input class="client" id="clientCod" name="client"/>
+                </div>
+                <div class="box-option">
+                    <div class="input-dir">
+                        <label>Código da Galeria</label>
+                        <input type="text" id="dir-input" name="dir-input" placeholder="Nenhuma pasta selecionada" readonly />
+                      </div>
+                    <div id="fakeButtom">procurar</div>
+                </div>
+            </div>
+            <div class="box-process">
+                <button type="button" id="buttom-process" disabled >Iniciar</button>
+            </div>
+          </div>
+
+    </div>
+    <div class="footer">
+      <p id="status">aguardando ação</p>
+    </div>
+    <script type="module">
+        import { browserDir, ProcessList } from './js/scripts.js'
+        var input = document.getElementById('btnDirectory');
+        var dirInput = document.getElementById('dir-input');
+        var btnProcess = document.getElementById('buttom-process');
+        var status = document.getElementById('status');
+        var client = document.getElementById('client');
+        let stateButtom = false;
+
+        document.getElementById('fakeButtom').addEventListener('click', ()=>{
+          browserDir(path =>{
+            if(path.length){
+              btnProcess.disabled = false;
+            }else{
+              btnProcess.disabled = true;
+            }
+            status.innerHTML = 'aguardando ação';
+            dirInput.value = path
+          })
+        })
+        btnProcess.addEventListener('click', ()=>{
+          let client = {
+            cod : clientCod.value,
+            dir : dirInput.value
+          }
+          ProcessList(client, response =>{
+
+            btnProcess.disabled = true;
+            if(response){
+              status.innerHTML = response;
+            }
+
+          })
+        })
+    </script>
+  </body>
+</html>
