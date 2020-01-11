@@ -35,40 +35,6 @@
     <div class="footer">
       <p id="status">aguardando ação</p>
     </div>
-    <script type="module">
-        import { browserDir, ProcessList } from './js/scripts.js'
-        var input = document.getElementById('btnDirectory');
-        var dirInput = document.getElementById('dir-input');
-        var btnProcess = document.getElementById('buttom-process');
-        var status = document.getElementById('status');
-        var client = document.getElementById('client');
-        let stateButtom = false;
-
-        document.getElementById('fakeButtom').addEventListener('click', ()=>{
-          browserDir(path =>{
-            if(path.length){
-              btnProcess.disabled = false;
-            }else{
-              btnProcess.disabled = true;
-            }
-            status.innerHTML = 'aguardando ação';
-            dirInput.value = path
-          })
-        })
-        btnProcess.addEventListener('click', ()=>{
-          let client = {
-            cod : clientCod.value,
-            dir : dirInput.value
-          }
-          ProcessList(client, response =>{
-
-            btnProcess.disabled = true;
-            if(response){
-              status.innerHTML = response;
-            }
-
-          })
-        })
-    </script>
+    <script type="module" src="./js/scripts.js"></script>
   </body>
 </html>
