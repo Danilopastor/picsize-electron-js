@@ -25,7 +25,7 @@
     "fs-copy-file-sync": "^1.1.1"
   },
   "devDependencies": {
-    "electron": "^7.1.7",
+    "electron": "^9.4.0",
     "electron-builder": "^21.2.0"
   }
 }
